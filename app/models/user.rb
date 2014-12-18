@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable
-  devise :rememberable, :trackable, :validatable, :omniauthable
+  devise :rememberable, :trackable, :omniauthable
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
@@ -34,8 +34,7 @@ class User < ActiveRecord::Base
         user = User.new(
           #name: auth.extra.raw_info.name,
           #username: auth.info.nickname || auth.uid,
-          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
-          password: Devise.friendly_token[0,20]
+          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com"
         )
         user.skip_confirmation! if user.respond_to?(:skip_confirmation)
         user.save!
@@ -52,5 +51,9 @@ class User < ActiveRecord::Base
 
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  def password_required?
+    false
   end
 end
