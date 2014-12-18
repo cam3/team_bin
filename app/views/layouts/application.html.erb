@@ -30,13 +30,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<%= root_path %>">Gamer city</a>
+          <%= link_to 'Gamer city', root_path, class: "navbar-brand" %>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li class="active"><%= link_to 'Home', root_path %></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav pull-right">
+            <% if user_signed_in? %>
+              <li><%= link_to 'Sign out', destroy_user_session_path, :method => :get %></li>
+            <% else %>
+              <li><%= link_to 'Login', new_user_session_path %></li>
+            <% end %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
