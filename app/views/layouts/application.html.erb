@@ -50,6 +50,9 @@
     </nav>
 
     <div class="container">
+      <% flash.each do |key, msg| %>
+        <%= content_tag :div, msg, id: key, class: "alert alert-success", role: "alert" %>
+      <% end %>
       <%= yield %>
     </div><!-- /.container -->
 
