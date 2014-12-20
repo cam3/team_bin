@@ -6,8 +6,16 @@ body { padding-top: 50px; }
   margin: 0 auto;
 }
 
+.form-signin img {
+  max-width: 250px;
+}
+
 .form-signin h2 {
   margin-bottom: 22px;
+}
+
+.form-signin li {
+  margin-bottom: 10px;
 }
 
 .flash-messages {

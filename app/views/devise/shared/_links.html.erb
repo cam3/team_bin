@@ -21,7 +21,7 @@
 <%- if devise_mapping.omniauthable? %>
    <ul class="list-unstyled">
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <li><%= link_to image_tag("oauth/#{provider}.png", width: '250px'), omniauth_authorize_path(resource_name, provider) %></li>
+    <li><%= link_to image_tag("oauth/#{provider}.png"), omniauth_authorize_path(resource_name, provider) %></li>
   <% end -%>
   </ul>
 <% end -%>

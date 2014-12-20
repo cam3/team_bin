@@ -1,4 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_filter  :verify_authenticity_token
+
   def self.provides_callback_for(provider)
     class_eval %Q{
       def #{provider}
@@ -15,7 +17,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     }
   end
 
-  [:bnet].each do |provider|
+  [:bnet, :steam].each do |provider|
     provides_callback_for provider
   end
 
