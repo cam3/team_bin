@@ -1,4 +1,18 @@
 body { padding-top: 50px; }
 
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-signin h2 {
+  margin-bottom: 22px;
+}
+
+.flash-messages {
+  min-height: 50px;
+}
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
