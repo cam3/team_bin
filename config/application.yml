@@ -1,0 +1,5 @@
+development:
+  BNET_KEY: ukq2rnupcsetbrgdg7x6vbxh6fynjwg2
+  BNET_SECRET: WkeMybtmJkh9fJcZd2T34Zyr9sbKP2Jk
+test:
+  MAILER_HOST: "test.local"
