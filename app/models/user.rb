@@ -1,60 +1,59 @@
 class User < ActiveRecord::Base
-  TEMP_EMAIL_PREFIX = 'change@me'
-  TEMP_EMAIL_REGEX = /\Achange@me/
   has_many :identities
-
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable
-  devise :rememberable, :trackable, :omniauthable
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :omniauthable,
+    :recoverable, :rememberable, :trackable, :validatable,
+    :confirmable
 
-  validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  def self.from_omniauth(auth, current_user = nil)
+    identity = Identity.find_or_create_for_omniauth(auth)
 
-  def self.find_for_oauth(auth, signed_in_resource = nil)
-
-    # Get the identity and user if they exist
-    identity = Identity.find_for_oauth(auth)
-
-    # If a signed_in_resource is provided it always overrides the existing user
+    # If a current_user is provided it always overrides the existing user
     # to prevent the identity being locked with accidentally created accounts.
     # Note that this may leave zombie accounts (with no associated identity) which
     # can be cleaned up at a later date.
-    user = signed_in_resource ? signed_in_resource : identity.user
+    user = current_user ? current_user : identity.user
 
     # Create the user if needed
     if user.nil?
-
-      # Get the existing user by email if the provider gives us a verified email.
-      # If no verified email was provided we assign a temporary email and ask the
-      # user to verify it on the next step via UsersController.finish_signup
-      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
-      email = auth.info.email if email_is_verified
-      user = User.where(:email => email).first if email
-
-      # Create the user if it's a new registration
-      if user.nil?
-        user = User.new(
-          #name: auth.extra.raw_info.name,
-          #username: auth.info.nickname || auth.uid,
-          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com"
-        )
-        user.skip_confirmation! if user.respond_to?(:skip_confirmation)
-        user.save!
+      user = where(email: auth.email).first_or_create do |user|
+        user.email    = auth.email         if auth.email
+        user.username = auth.info.nickname if auth.info.nickname
       end
     end
 
     # Associate the identity with the user if needed
-    if identity.user != user
-      identity.user = user
-      identity.save!
-    end
+    #if user && identity.user != user
+    #  identity.user = user
+    #  identity.save!
+    #end
+
     user
   end
 
-  def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+  def self.new_with_session(params, session)
+    logger.debug session["devise.user_attributes"].inspect
+    if session["devise.user_attributes"]
+      user = super
+      identity = Identity.find_or_create_for_omniauth(session["devise.user_attributes"])
+
+      if user && identity.user != user
+        identity.user = user
+        identity.save!
+      end
+      #new(session["devise.user_attributes"], without_protection: true) do |user|
+      #  user.attributes = params
+      #  user.valid?
+      #end
+      user
+    else
+      super
+    end
   end
 
   def password_required?
-    false
+    # The password is only required if they are registering without an identity aka openid or oauth via omniauth
+    super && !self.identities.empty?
   end
 end
