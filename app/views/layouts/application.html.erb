@@ -40,6 +40,7 @@
           </ul>
           <ul class="nav navbar-nav pull-right">
             <% if user_signed_in? %>
+              <li class="navbar-text">Logged in as <strong><%= link_to current_user.email, edit_user_registration_path %></strong></li>
               <li><%= link_to 'Sign out', destroy_user_session_path, :method => :get %></li>
             <% else %>
               <li class="<%= 'active' if current_page?(new_user_session_path) %>"><%= link_to 'Sign In', new_user_session_path %></li>

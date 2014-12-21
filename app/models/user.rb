@@ -73,4 +73,12 @@ class User < ActiveRecord::Base
     # The password is only required if they are registering without an identity aka openid or oauth via omniauth
     super && identities.empty? && !from_omniauth
   end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
 end
