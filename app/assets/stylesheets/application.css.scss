@@ -4,18 +4,9 @@ body { padding-top: 50px; }
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
-}
-
-.form-signin img {
-  max-width: 250px;
-}
-
-.form-signin h2 {
-  margin-bottom: 22px;
-}
-
-.form-signin li {
-  margin-bottom: 10px;
+  img { max-width: 250px;    }
+  h2  { margin-bottom: 22px; }
+  li  { margin-bottom: 10px; }
 }
 
 .flash-messages {
@@ -24,6 +15,17 @@ body { padding-top: 50px; }
 
 .simple_form {
   max-width: 450px;
+}
+
+.navbar-text {
+  margin-left: 15px;
+
+  a { color: #9d9d9d; }
+
+  a:hover {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 @import "bootstrap-sprockets";
