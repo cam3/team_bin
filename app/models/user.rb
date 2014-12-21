@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :from_omniauth, :login
-  validates :username,
+  validates :username, presence: true,
   :uniqueness => {
     :case_sensitive => false
   }
