@@ -185,11 +185,11 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
-  omniauth
-  omniauth-bnet
-  omniauth-openid
-  pry
-  puma
+  omniauth (~> 1.2.2)
+  omniauth-bnet (~> 1.0.1)
+  omniauth-openid (~> 1.0.1)
+  pry (~> 0.10.1)
+  puma (~> 2.10.2)
   rails (= 4.1.4)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
