@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  attr_accessor :from_omniauth, :login
+  validates :username,
+  :uniqueness => {
+    :case_sensitive => false
+  }
+
   has_many :identities
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -29,6 +35,7 @@ class User < ActiveRecord::Base
     #  identity.save!
     #end
 
+    user.from_omniauth = true
     user
   end
 
@@ -36,6 +43,7 @@ class User < ActiveRecord::Base
     logger.debug session["devise.user_attributes"].inspect
     if session["devise.user_attributes"]
       user = super
+      user.from_omniauth = true
       identity = Identity.find_or_create_for_omniauth(session["devise.user_attributes"])
 
       if user && identity.user != user
@@ -52,8 +60,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
+
   def password_required?
     # The password is only required if they are registering without an identity aka openid or oauth via omniauth
-    super && self.identities.empty?
+    super && identities.empty? && !from_omniauth
   end
 end
