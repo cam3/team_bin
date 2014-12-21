@@ -22,5 +22,9 @@ body { padding-top: 50px; }
   min-height: 50px;
 }
 
+.simple_form {
+  max-width: 450px;
+}
+
 @import "bootstrap-sprockets";
 @import "bootstrap";

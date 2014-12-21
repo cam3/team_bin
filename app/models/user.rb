@@ -54,6 +54,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     # The password is only required if they are registering without an identity aka openid or oauth via omniauth
-    super && !self.identities.empty?
+    super && self.identities.empty?
   end
 end
