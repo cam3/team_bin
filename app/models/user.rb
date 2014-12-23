@@ -15,27 +15,36 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth, current_user = nil)
     identity = Identity.find_or_create_for_omniauth(auth)
 
-    # If a current_user is provided it always overrides the existing user
-    # to prevent the identity being locked with accidentally created accounts.
-    # Note that this may leave zombie accounts (with no associated identity) which
-    # can be cleaned up at a later date.
-    user = current_user ? current_user : identity.user
-
-    # Create the user if needed
-    if user.nil?
+    ## Some of this seems redundtant right now, but that is so it's easy to change behavior down the road
+    if current_user && identity.user && current_user != identity.user
+      # If both the user and identity exist but there is a mismatch, just
+      # associate the identity with the user who is already logged in.
+      identity.user = current_user
+      identity.save!
+      return current_user
+    elsif current_user && identity.user && current_user == identity.user
+      # If current user and identity match, just return the user. This is
+      # simply a returning customer :)
+      return current_user
+    elsif current_user && identity.user.nil?
+      # If the user exists and the identity is new, associate the identity
+      # with the user who is already logged in.
+      identity.user = current_user
+      identity.save!
+      return current_user
+    elsif current_user.nil? && identity.user
+      # If they're not currently signed in and the identity exists just return
+      # the user, this is simply a returning customer :)
+      return identity.user
+    elsif current_user.nil? && identity.user.nil?
       user = where(email: auth.email).first_or_create do |user|
         user.email    = auth.email         if auth.email
         user.username = auth.info.nickname if auth.info.nickname
       end
+    else
+      logger.error("I can't think of a single reason why we're inside this else block... look into this ASAP.")
     end
 
-    # Associate the identity with the user if needed
-    #if user && identity.user != user
-    #  identity.user = user
-    #  identity.save!
-    #end
-
-    user.from_omniauth = true
     user
   end
 
@@ -46,14 +55,10 @@ class User < ActiveRecord::Base
       user.from_omniauth = true
       identity = Identity.find_or_create_for_omniauth(session["devise.user_attributes"])
 
-      if user && identity.user != user
-        identity.user = user
-        identity.save!
-      end
-      #new(session["devise.user_attributes"], without_protection: true) do |user|
-      #  user.attributes = params
-      #  user.valid?
-      #end
+      # Associate new user with new identity.
+      identity.user = user
+      identity.save!
+
       user
     else
       super
