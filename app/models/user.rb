@@ -49,16 +49,9 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)
-    logger.debug session["devise.user_attributes"].inspect
     if session["devise.user_attributes"]
       user = super
       user.from_omniauth = true
-      identity = Identity.find_or_create_for_omniauth(session["devise.user_attributes"])
-
-      # Associate new user with new identity.
-      identity.user = user
-      identity.save!
-
       user
     else
       super

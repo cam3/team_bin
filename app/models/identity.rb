@@ -7,12 +7,11 @@ class Identity < ActiveRecord::Base
     if Hash === auth
       uid      = auth['uid']
       provider = auth['provider']
-    elsif OmniAuth::AuthHash
-      uid     = auth.uid
+    elsif OmniAuth::AuthHash === auth
+      uid      = auth.uid
       provider = auth.provider
     end
-    logger.debug("auth class: #{auth.class}")
-    logger.debug("auth inspect: #{auth.inspect}")
+
     find_or_create_by(uid: uid, provider: provider)
   end
 end

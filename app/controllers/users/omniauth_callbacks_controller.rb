@@ -10,6 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect user
     else
       session["devise.user_attributes"] = auth
+      flash.notice = %Q{You're almost done signing up! Fill in the information below and click "Sign up" to finish.}
       redirect_to new_user_registration_url
     end
   end
