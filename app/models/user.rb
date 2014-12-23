@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
       user = super
+      # unfortunately this is required so we don't ask the user for their password
       user.from_omniauth = true
       user
     else
