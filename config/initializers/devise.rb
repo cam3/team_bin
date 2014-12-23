@@ -1,6 +1,8 @@
 require "openid/store/filesystem"
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+BNET_CONFIG = YAML.load_file("#{::Rails.root}/config/bnet.yml")[::Rails.env]
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -234,7 +236,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :bnet, ENV['BNET_KEY'], ENV['BNET_SECRET'], scope: "wow.profile,sc2.profile"
+  config.omniauth :bnet, BNET_CONFIG['key'], BNET_CONFIG['secret'], scope: "wow.profile,sc2.profile"
   #config.omniauth :open_id, name: :steam, identifier: "http://steamcommunity.com/openid?key=8919140D3237D7189E734682FD9EECFB", :store => OpenID::Store::Filesystem.new('/tmp')
   config.omniauth :open_id, name: :steam, identifier: "http://steamcommunity.com/openid", :store => OpenID::Store::Filesystem.new('/tmp')
 

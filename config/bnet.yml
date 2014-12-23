@@ -1,0 +1,8 @@
+development: &dev
+  key: ukq2rnupcsetbrgdg7x6vbxh6fynjwg2
+  secret: WkeMybtmJkh9fJcZd2T34Zyr9sbKP2Jk
+test:
+  <<: *dev
+production:
+  key: eb5fjh3mh9tejn5wh78mrmuvncjarkev
+  secret: W2Bc3FC87XvaczE4Ggpjyz2yrH5Sp5nC
