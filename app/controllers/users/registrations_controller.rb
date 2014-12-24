@@ -9,26 +9,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!! stepping inside create")
-    res = super
-
-    resource_saved = resource.save
-    if resource_saved && session["devise.user_attributes"]
-      logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!! stepping inside if")
-
-      # Associate new user with new identity.
-      identity = Identity.find_or_create_for_omniauth(session["devise.user_attributes"])
-      identity.user = resource
-      identity.save!
-      logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!! finished if")
-    end
-
-    logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!! finished create")
-    res
-  end
-
-  # POST /resource
-  def create
     build_resource(sign_up_params)
 
     resource_saved = resource.save
