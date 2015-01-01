@@ -8,5 +8,7 @@ class Api::V1::UsersController < ApplicationController
     else
       @users = User.all.limit(10)
     end
+
+    @users = @users.to_a.map { |x| x.username }
   end
 end

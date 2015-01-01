@@ -10,5 +10,14 @@
   <%= @team.subdomain %>
 </p>
 
+<p>
+  <strong>Add User:</strong>
+  <form>
+    <div class="form-group">
+      <input id="user-search" class="form-control" placeholder="Enter username to add to team...">
+    </div>
+  </form>
+</p>
+
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
