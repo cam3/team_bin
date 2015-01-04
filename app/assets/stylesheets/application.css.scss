@@ -1,5 +1,4 @@
 $navbar-inverse-bg: #565656;
-$body-bg: white;
 
 body {
   padding-top: 50px;
@@ -8,7 +7,13 @@ body {
 .navbar-inverse {
   background-color: $navbar-inverse-bg;
   position: fixed;
-  height: 50px;
+  height: 51px;
+}
+
+.navbar-collapse {
+  .navbar-nav {
+    margin: 0px -15px;
+  }
 }
 
 .logo {
@@ -16,6 +21,7 @@ body {
   border: 7px solid #fff;
   border-radius: 15px;
   margin: 10px;
+  background-color: #fff;
 }
 
 .form-signin {
@@ -25,6 +31,11 @@ body {
   img { max-width: 250px;    }
   h2  { margin-bottom: 22px; }
   li  { margin-bottom: 10px; }
+}
+
+.tier2 {
+  background-color: #456D89;
+  min-height:15px;
 }
 
 .flash-messages {

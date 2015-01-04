@@ -21,6 +21,7 @@
 
   <body>
 
+
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -33,9 +34,7 @@
           <%= image_tag "teambin5noborder.png", :class => "logo" %>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" style="background-color: rgb(86, 86, 86);">
             <% if user_signed_in? %>
               <li class="navbar-text">Logged in as <strong><%= link_to current_user.email, edit_user_registration_path %></strong></li>
               <li><%= link_to 'Sign out', destroy_user_session_path, :method => :get %></li>
@@ -49,6 +48,8 @@
   </div>
 </div>
 
+<div class="tier2">
+</div>
     <div class="flash-messages">
       <% flash.each do |key, msg| %>
         <%= content_tag :div, msg, id: key, class: "alert alert-success", role: "alert" %>
