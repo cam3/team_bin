@@ -51,3 +51,11 @@ body {
 @import "ui-autocomplete";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+/* Add AFTER the import so we have the mixins available to us. */
+section {
+  @include make-row();
+  article {
+      @include make-md-column(4);
+  }
+}
