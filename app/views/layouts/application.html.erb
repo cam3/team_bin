@@ -20,8 +20,6 @@
   </head>
 
   <body>
-
-
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -31,16 +29,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= image_tag "teambin5noborder.png", :class => "logo" %>
+          <%= image_tag "teambin5noborder.png", :class => "logo-hidden-xs hidden-xs" %>
+          <%= image_tag "teambin5longsmall.png", :class => "logo-visible-xs visible-xs" %>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right" style="background-color: rgb(86, 86, 86);">
-            <% if user_signed_in? %>
-              <li class="navbar-text">Logged in as <strong><%= link_to current_user.email, edit_user_registration_path %></strong></li>
-              <li><%= link_to 'Sign out', destroy_user_session_path, :method => :get %></li>
-            <% else %>
-              <li class="<%= 'active' if current_page?(new_user_session_path) %>"><%= link_to 'Sign In', new_user_session_path %></li>
-            <% end %>
+            <li class="navbar-text">Here</li>
+            <li class="navbar-text">Are</li>
+            <li class="navbar-text">A</li>
+            <li class="navbar-text">List</li>
+            <li class="navbar-text">Of</li>
+            <li class="navbar-text">Links</li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -48,8 +47,18 @@
   </div>
 </div>
 
+
 <div class="tier2">
+  <% if user_signed_in? %>
+  <ul class="pull-right">
+    <li>Logged in as <strong><%= link_to current_user.email, edit_user_registration_path %></strong></li>
+    <li><%= link_to 'Sign out', destroy_user_session_path, :method => :get %></li>
+    <% else %>
+    <li class="<%= 'active' if current_page?(new_user_session_path) %> pull-right"><%= link_to 'Sign In', new_user_session_path %></li>
+    <% end %>
+  </ul>
 </div>
+
     <div class="flash-messages">
       <% flash.each do |key, msg| %>
         <%= content_tag :div, msg, id: key, class: "alert alert-success", role: "alert" %>
