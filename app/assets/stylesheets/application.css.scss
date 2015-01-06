@@ -1,14 +1,22 @@
 $navbar-inverse-bg: #565656;
-$body-bg: #fff;
+$body-bg: #F4F4EC;
 
 body {
   padding-top: 50px;
+  font-family: "Merriweather Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .navbar-inverse {
   background-color: $navbar-inverse-bg;
   position: fixed;
   height: 51px;
+}
+
+.teambinheader {
+  text-align:center;
+  h1 {
+    font-size:55px;
+  }
 }
 
 .navbar-collapse {
@@ -22,6 +30,10 @@ body {
   height: 40px;
 }
 
+.logo1 {
+  height: 150px;
+}
+
 .logo-visible-xs {
     @extend .logo;
     margin: 5px 5px 5px 10px;
@@ -32,13 +44,25 @@ body {
     @extend .logo;
     border-radius: 15px;
     margin: 10px;
-    background-color: $body-bg;
+    background-color: #fff;
     margin: 10px;
     height: 100px;
     border: 7px solid #fff;
 }
 
+.creatediv {
+  .input-group {
+    height: 50px;
+  }
+  input {
+    height: 50px;
+    text-align: right;
+  }
+    margin: 0 350px;
+    padding: 30px;
 
+
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;
