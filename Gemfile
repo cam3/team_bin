@@ -41,6 +41,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem "faker", group: [:development, :test]
+gem "pry", "~> 0.10.1", group: :development
 
 gem "bootstrap-sass", "~> 3.3.1"
 gem "autoprefixer-rails", "~> 4.0.2.1"
@@ -51,4 +52,6 @@ gem "puma", "~> 2.10.2"
 gem "omniauth", "~> 1.2.2"
 gem "omniauth-bnet", "~> 1.0.1"
 gem "omniauth-openid", "~> 1.0.1"
-gem "pry", "~> 0.10.1", group: :development
+
+gem "role_model", "~> 0.8.1"
+gem "cancan", "~> 1.6.10"
