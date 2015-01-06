@@ -1,9 +1,9 @@
 $navbar-inverse-bg: #565656;
 $body-bg: #F4F4EC;
+$font-family-sans-serif:  "Merriweather Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 
 body {
   padding-top: 50px;
-  font-family: "Merriweather Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .navbar-inverse {
@@ -16,6 +16,7 @@ body {
   text-align:center;
   h1 {
     font-size:55px;
+    color: rgb(105, 105, 105);
   }
 }
 
@@ -26,8 +27,20 @@ body {
 }
 
 .logo {
-  margin: 5px 5px 5px 10px;
-  height: 40px;
+  margin: 8px;
+  height: 35px;
+  margin-top: 3px;
+}
+.logotext {
+  font-family: 'PT Sans', sans-serif;
+  color: white;
+  font-size: 35px;
+}
+
+.logotext1 {
+  font-family: 'PT Sans', sans-serif;
+  color: rgb(245, 146, 49);
+  font-size: 57px;
 }
 
 .logo1 {
@@ -54,9 +67,14 @@ body {
   .input-group {
     height: 50px;
   }
+  span {
+    background-color:#fff;
+    font-size: 17px;
+  }
   input {
     height: 50px;
     text-align: right;
+    font-size: 17px;
   }
     margin: 0 350px;
     padding: 30px;
