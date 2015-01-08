@@ -115,15 +115,6 @@ body {
   }
 }
 
-.alert {
-    min-height: 50px;
-    text-align: center;
-    background-color:#F4F4EC;
-}
-
-#notice {
-    bottom-margin:0px;
-}
 
 .simple_form {
   max-width: 450px;
@@ -156,6 +147,11 @@ section#bdrop2 {
 @import "bootstrap";
 
 /* Add AFTER the import so we have the mixins available to us. */
+.alert {
+    margin-bottom: 0px;
+    text-align: center;
+}
+
 section {
   @include make-row();
   article {
